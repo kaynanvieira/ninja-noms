@@ -1,33 +1,9 @@
-import { useState } from "react";
 import products from "../data/products";
+import { useCart } from "../context/CartContext";
 
 function Ecommerce() {
-  // Estado do carrinho como array
-  const [cart, setCart] = useState([]);
+  const { cart, addToCart, updateQuantity, removeFromCart, clearCart } = useCart();
 
-  // Adicionar produto ao carrinho
-  function addToCart(product) {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
-      if (existingItem) {
-        // Se já existe, aumenta a quantidade
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      // Se não existe, insere com quantidade 1
-      return [...prevCart, { ...product, quantity: 1 }];
-    });
-  }
-
-  // Remover produto do carrinho
-  function removeFromCart(id) {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-  }
-
-  // Calcular valor total
   const total = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -35,17 +11,15 @@ function Ecommerce() {
 
   function handleCheckout() {
     if (cart.length === 0) return;
-    alert(`Pedido finalizado no valor de R$ ${total.toFixed(2)}! Em breve chegaremos aí.`);
-    setCart([]);
+    alert(`Pedido registrado no valor de R$ ${total.toFixed(2)}! Aguardando pagamento.`);
+    clearCart();
   }
 
   return (
     <div>
       <section className="top">
         <h1>E-commerce</h1>
-        <p>
-          Selecione seus itens abaixo para montar o seu pedido em tempo real.
-        </p>
+        <p>Selecione seus itens abaixo para montar o seu pedido em tempo real.</p>
       </section>
 
       {/* Grade de Vitrine */}
@@ -61,10 +35,7 @@ function Ecommerce() {
                   <p className="price-tag">R$ {product.price.toFixed(2)}</p>
                 </figcaption>
               </figure>
-              <button
-                className="button-add"
-                onClick={() => addToCart(product)}
-              >
+              <button className="button-add" onClick={() => addToCart(product)}>
                 Adicionar
               </button>
             </div>
@@ -85,13 +56,32 @@ function Ecommerce() {
                   <img src={item.image} alt={item.name} />
                   <div className="cart-item-info">
                     <h4>{item.name}</h4>
-                    <p>
-                      {item.quantity}x R$ {item.price.toFixed(2)} ={" "}
-                      <strong>
-                        R$ {(item.quantity * item.price).toFixed(2)}
-                      </strong>
+                    <p className="item-unit-price">
+                      R$ {item.price.toFixed(2)} un.
                     </p>
                   </div>
+
+                  {/* Controles de Quantidade (+ e -) */}
+                  <div className="qty-controls">
+                    <button
+                      className="qty-btn"
+                      onClick={() => updateQuantity(item.id, -1)}
+                    >
+                      -
+                    </button>
+                    <span className="qty-number">{item.quantity}</span>
+                    <button
+                      className="qty-btn"
+                      onClick={() => updateQuantity(item.id, 1)}
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <div className="item-total-price">
+                    <strong>R$ {(item.quantity * item.price).toFixed(2)}</strong>
+                  </div>
+
                   <button
                     className="button-remove"
                     onClick={() => removeFromCart(item.id)}
@@ -103,7 +93,9 @@ function Ecommerce() {
             </ul>
 
             <div className="cart-summary">
-              <h3>Total: <span>R$ {total.toFixed(2)}</span></h3>
+              <h3>
+                Total: <span>R$ {total.toFixed(2)}</span>
+              </h3>
               <button className="button" onClick={handleCheckout}>
                 Finalizar Compra
               </button>

@@ -1,20 +1,28 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
-function ProductCard({ name, description, image, price }) {
+function ProductCard({ product }) {
+  const { addToCart } = useCart();
+
   return (
     <div className="product-card">
       <div className="product-info">
-        <h2>{name}</h2>
-        <p>{description}</p>
+        <h2>{product.name}</h2>
+        <p>{product.description}</p>
         <div className="product-actions">
-          {price && <span className="price">R$ {price.toFixed(2)}</span>}
+          {product.price && (
+            <span className="price">R$ {product.price.toFixed(2)}</span>
+          )}
           <Link to="/ingredientes" className="button">
             Ingredientes
           </Link>
+          <button className="button" onClick={() => addToCart(product)}>
+            Adicionar ao Carrinho
+          </button>
         </div>
       </div>
       <div className="product-image">
-        <img src={image} alt={name} />
+        <img src={product.image} alt={product.name} />
       </div>
     </div>
   );
