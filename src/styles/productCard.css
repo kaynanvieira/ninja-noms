@@ -41,25 +41,31 @@
   margin-bottom: 20px;
 }
 
+/* ===================================================
+   AÇÕES EMPILHADAS (UM EM CIMA DO OUTRO)
+   =================================================== */
 .product-actions {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
+  flex-direction: column; /* Coloca um abaixo do outro */
+  align-items: flex-start;
+  gap: 12px;
   margin-top: 15px;
+  max-width: 260px;
 }
 
 .product-actions .price {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
   color: #ff6b00;
-  margin-right: 8px;
+  margin-bottom: 4px;
 }
 
 .product-actions .button {
   background-color: #ff6b00;
   color: #f0f8ff;
   border: none;
+  width: 100%;
+  text-align: center;
 }
 
 .product-image {
@@ -76,10 +82,13 @@
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
 }
 
+/* ===================================================
+   RESPONSIVIDADE MOBILE
+   =================================================== */
 @media (max-width: 768px) {
   .product-card,
   .product-card:nth-child(even) {
-    flex-direction: column-reverse; /* Imagem fica no topo do card */
+    flex-direction: column-reverse;
     padding: 30px 20px;
     gap: 20px;
     text-align: center;
@@ -94,7 +103,10 @@
   }
 
   .product-actions {
-    justify-content: center;
+    align-items: center;
+    margin: 15px auto 0;
+    width: 100%;
+    max-width: 280px;
   }
 
   .product-image {

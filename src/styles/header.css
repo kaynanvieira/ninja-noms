@@ -5,10 +5,12 @@ header {
   padding: 16px 6%;
   background-color: #cccccc;
   border-bottom: 2px solid #b3b3b3;
+  position: relative;
+  z-index: 100;
 }
 
 .logo img {
-  width: 70px;
+  width: 65px;
   height: auto;
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -18,7 +20,51 @@ header {
   transform: scale(1.08);
 }
 
-.menu {
+.menu-toggle {
+  display: none;
+  background: transparent;
+  color: #19181e;
+  font-size: 32px;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.header-cart-icon {
+  display: none;
+  position: relative;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.cart-svg-icon {
+  width: 30px;
+  height: 30px;
+  stroke: #19181e;
+}
+
+.cart-badge-icon {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  background-color: #ff6b00;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #cccccc;
+}
+
+/* Menu Desktop */
+.desktop-nav .menu {
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -27,14 +73,14 @@ header {
   font-weight: bold;
 }
 
-.menu a {
+.desktop-nav .menu a {
   color: #000000;
   font-size: 19px;
   transition: transform 0.2s, color 0.2s;
   display: inline-block;
 }
 
-.menu a:hover {
+.desktop-nav .menu a:hover {
   transform: scale(1.1);
   color: #ff6b00;
 }
@@ -58,34 +104,152 @@ header {
   justify-content: center;
   padding: 2px 6px;
   margin-left: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-  animation: popBadge 0.2s ease-in-out;
 }
 
-@keyframes popBadge {
-  0% { transform: scale(0.6); }
-  80% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+/* Oculta os elementos mobile no desktop */
+.mobile-drawer,
+.menu-backdrop {
+  display: none;
 }
 
+/* ===================================================
+   RESPONSIVIDADE: MENU LATERAL GAVETA (DRAWER)
+   =================================================== */
 @media (max-width: 768px) {
   header {
+    padding: 12px 18px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .header-cart-icon {
+    display: flex;
+  }
+
+  .mobile-drawer {
+    display: flex;
     flex-direction: column;
-    padding: 12px 16px;
-    gap: 12px;
+    position: fixed;
+    top: 0;
+    left: -290px;
+    width: 270px;
+    height: 100vh;
+    background-color: #19181e;
+    box-shadow: 6px 0 24px rgba(0, 0, 0, 0.7);
+    transition: left 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+    z-index: 999999;
+    padding: 24px 20px;
   }
 
-  .logo img {
-    width: 55px;
+  .mobile-drawer.open {
+    left: 0;
   }
 
-  .menu {
-    flex-wrap: wrap;
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #2d2c36;
+  }
+
+  .drawer-title {
+    color: #888888;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .drawer-close {
+    background: transparent;
+    color: #ff6b00;
+    font-size: 26px;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+  }
+
+  .drawer-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .drawer-menu li {
+    width: 100%;
+  }
+
+  /* Links em Laranja Ninja com fundo sutil */
+  .drawer-link {
+    background: #23222a;
+    border: 1px solid #2d2c36;
+    color: #ff6b00;
+    font-size: 19px;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Garante que o texto de dentro (mesmo com <span>) fique sempre visível */
+  .drawer-link span {
+    color: inherit; /* Herda a cor do botão pai */
+  }
+
+  /* Efeito Hover/Toque: Fundo Laranja e Texto Branco com alto contraste */
+  .drawer-link:active,
+  .drawer-link:hover {
+    background-color: #ff6b00;
+    color: #ffffff;
+    transform: translateX(4px);
+    border-color: #ff6b00;
+  }
+
+  .drawer-link:active span,
+  .drawer-link:hover span {
+    color: #ffffff !important; /* Força o texto do E-commerce a ficar branco */
+  }
+
+  /* Badge numérica dentro da gaveta */
+  .cart-badge-drawer {
+    background-color: #ff6b00;
+    color: #ffffff !important;
+    font-size: 12px;
+    font-weight: bold;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    gap: 14px 20px;
+    border: 2px solid #19181e;
+    transition: background 0.2s, color 0.2s;
   }
 
-  .menu a {
-    font-size: 16px;
+  /* Quando o botão estiver no hover, a bolinha inverte: fundo preto com número laranja */
+  .drawer-link:hover .cart-badge-drawer,
+  .drawer-link:active .cart-badge-drawer {
+    background-color: #19181e !important;
+    color: #ff6b00 !important;
+    border-color: #ffffff;
   }
 }
