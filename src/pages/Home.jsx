@@ -28,8 +28,8 @@ function Home() {
           <div className="boxes_images">
             <img src="/imagens/Rectangle2.png" alt="Ingredientes" />
             <h3>
-              <Link to="/ingredientes" className="button">
-                Ingredientes
+              <Link to="/produtos" className="button">
+                Produtos
               </Link>
             </h3>
           </div>
