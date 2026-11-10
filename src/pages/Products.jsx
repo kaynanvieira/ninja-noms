@@ -11,7 +11,7 @@ function Products() {
       <section className="top">
         <h1>Produtos</h1>
         <p>
-          Desfrute da autenticidade e da deliciosa culinária japonesa em nosso menu de comidas rápidas. Seja um saboroso temaki, um irresistível hot roll ou um apetitoso sushi, nossas opções de fast food japonês são perfeitas para satisfazer seus desejos de forma rápida e saborosa. Preparados com ingredientes frescos e seguindo técnicas tradicionais, nossos pratos trazem a essência da gastronomia japonesa para uma experiência de refeição prática e deliciosa. Desperte seus sentidos com sabores autênticos e mergulhe no mundo da comida japonesa, sem abrir mão da qualidade e do prazer de uma refeição memorável.
+          Desfrute da autenticidade e da deliciosa culinária japonesa em nosso menu de comidas rápidas. Seja um saboroso temaki, um irresistível hot roll ou um apetitoso sushi, nossas opções de japonês são perfeitas para satisfazer seus desejos de forma rápida e saborosa.
         </p>
       </section>
 
