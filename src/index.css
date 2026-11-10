@@ -594,3 +594,75 @@ footer p {
   min-width: 90px;
   text-align: right;
 }
+
+
+
+/* ===================================================
+   BADGE DO CARRINHO NO HEADER
+   =================================================== */
+.ecommerce-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cart-badge {
+  background-color: #ff6b00;
+  color: #ffffff !important;
+  font-size: 13px;
+  font-weight: bold;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px;
+  margin-left: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  animation: popBadge 0.2s ease-in-out;
+}
+
+@keyframes popBadge {
+  0% { transform: scale(0.6); }
+  80% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ===================================================
+   TOAST NOTIFICATION (AVISO DE SUCESSO FLUTUANTE)
+   =================================================== */
+.toast-notification {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  background-color: #19181e;
+  color: #ffffff;
+  padding: 14px 22px;
+  border-radius: 10px;
+  border-left: 5px solid #ff6b00;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideInToast 0.3s ease-out;
+}
+
+.toast-notification span {
+  color: #ff6b00;
+  font-size: 18px;
+}
+
+@keyframes slideInToast {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

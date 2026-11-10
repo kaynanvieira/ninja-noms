@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
-function Header(){
-    return (
-        <header>
+function Header() {
+  const { totalItemsCount } = useCart();
+
+  return (
+    <header>
       <div className="logo">
         <Link to="/">
           <img src="/imagens/favicon.ico" alt="Ninja Noms Logo" />
@@ -24,12 +27,17 @@ function Header(){
             <Link to="/fastfood">Fast Food</Link>
           </li>
           <li>
-            <Link to="/ecommerce">E-commerce</Link>
+            <Link to="/ecommerce" className="ecommerce-link">
+              E-commerce
+              {totalItemsCount > 0 && (
+                <span className="cart-badge">{totalItemsCount}</span>
+              )}
+            </Link>
           </li>
         </ul>
       </nav>
     </header>
-    );
-};
+  );
+}
 
 export default Header;
